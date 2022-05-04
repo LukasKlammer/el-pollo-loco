@@ -10,7 +10,10 @@ class World {
         new Cloud(),
     ];
     backgroundObjects = [
-        new BackgroundObject('../img/5.Fondo/Capas/1.suelo-fondo1/1.png'),
+        new BackgroundObject('../img/5.Fondo/Capas/5.cielo_1920-1080px.png', 0), // Himmel
+        new BackgroundObject('../img/5.Fondo/Capas/3.Fondo3/1.png', 0), // pinker Hintergrund
+        new BackgroundObject('../img/5.Fondo/Capas/2.Fondo2/1.png', 0),  // roter Hintergrund
+        new BackgroundObject('../img/5.Fondo/Capas/1.suelo-fondo1/1.png', 0) // mehrfarbiger Hintergrund
     ];
 
     canvas; // (HIER)
@@ -29,10 +32,10 @@ class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // clears the canvas for redrawing
 
+        this.addObjectsToMap(this.backgroundObjects);
         this.addToMap(this.character);
         this.addObjectsToMap(this.enemies);
         this.addObjectsToMap(this.clouds);
-        this.addObjectsToMap(this.backgroundObjects);
 
         let self = this;
         requestAnimationFrame(function () { // ins requestAnimationFrame wird eine Funktion reingegeben, die wird ausgeführt, sobald alles drüber fertig gezeichnet wurde (asynchron)

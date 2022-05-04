@@ -1,10 +1,11 @@
 class BackgroundObject extends MovableObject { // MovableObject nicht ganz perfekt, aber er bewegt sich ja auch, wenn man läuft
-    x = 0;
-    y = 0;
-    width = 720;
-    height = 500;
 
-    constructor(imagePath) {
+    height = 480;
+    width = 720;
+
+    constructor(imagePath, x) {
         super().loadImage(imagePath);
+        this.x = x;
+        this.y = 480 - this.height; // Höhe vom canvas - Höhe vom Objekt
     }
 }
