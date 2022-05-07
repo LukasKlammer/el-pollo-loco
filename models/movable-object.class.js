@@ -5,6 +5,8 @@ class MovableObject {
     height = 150;
     width = 120;
     imageCache = {};
+    currentImage = 0;
+    speed = 0.1;
 
     // loadImage('img/test.png');
     loadImage(path) {
@@ -22,7 +24,7 @@ class MovableObject {
         arr.forEach(path => {
             let img = new Image(); // Variable mit neuem Bild wird angelegt
             img.src = path; // Bild (Pfad) wird ins img Objekt reingeladen
-            this.imageCache[path] = path; // this ist wichtig, weil wir auf Variable von Objekt zugreifen, nicht auf einer von innerhalb der Funktion
+            this.imageCache[path] = img; // this ist wichtig, weil wir auf Variable von Objekt zugreifen, nicht auf einer von innerhalb der Funktion
             // im imageCache werden Bilder reingeladen: Schlüssel ist der Datei-Pfad
         });
     }
@@ -34,6 +36,8 @@ class MovableObject {
 
 
     moveLeft() {
-
+        setInterval(() => {
+            this.x -= this.speed; // was soll ausgeführt werden
+        }, 1000 / 60); // 2. Parameter Millisekunden, also alle wieviel Zeit wiederholt wird
     }
 }

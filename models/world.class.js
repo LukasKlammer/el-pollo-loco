@@ -16,7 +16,7 @@ class World {
         new BackgroundObject('../img/5.Fondo/Capas/1.suelo-fondo1/1.png', 0) // mehrfarbiger Hintergrund
     ];
 
-    canvas; // (HIER)
+    canvas; // (--> siehe unten im constructor)
     ctx; // Variable context
 
 

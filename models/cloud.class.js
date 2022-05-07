@@ -1,6 +1,6 @@
 class Cloud extends MovableObject {
 
-    y = 20;
+    y = 0;
     width = 500;
     height = 250; // aus constructor rausnehmen, weil es ja immer fixe Werte sind
 
@@ -13,11 +13,9 @@ class Cloud extends MovableObject {
     }
 
     animate() {
-        setInterval(() => {
-            this.x -= 0.1; // was soll ausgeführt werden
-        }, 1000 / 60); // 2. Parameter Millisekunden, also alle wieviel Zeit wiederholt wird
-
+        this.moveLeft();
     }
+
 
 
 }
