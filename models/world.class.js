@@ -1,26 +1,7 @@
 class World {
 
     character = new Character();
-    enemies = [
-        new Chicken(),
-        new Chicken(),
-        new Chicken(),
-    ];
-    clouds = [
-        new Cloud(),
-    ];
-    backgroundObjects = [
-
-        // new BackgroundObject('../img/5.Fondo/Capas/5.cielo_1920-1080px.png', 0), // Himmel
-        // new BackgroundObject('../img/5.Fondo/Capas/3.Fondo3/1.png', 0), // pinker Hintergrund linker Teil
-        // new BackgroundObject('../img/5.Fondo/Capas/2.Fondo2/1.png', 0),  // roter Hintergrund linker Teil
-        // new BackgroundObject('../img/5.Fondo/Capas/1.suelo-fondo1/1.png', 0), // mehrfarbiger Hintergrund linker Teil
-        // new BackgroundObject('../img/5.Fondo/Capas/5.cielo_1920-1080px.png', 719), // Himmel
-        // new BackgroundObject('../img/5.Fondo/Capas/3.Fondo3/2.png', 719), // pinker Hintergrund rechter Teil
-        // new BackgroundObject('../img/5.Fondo/Capas/2.Fondo2/2.png', 719),  // roter Hintergrund rechter Teil
-        // new BackgroundObject('../img/5.Fondo/Capas/1.suelo-fondo1/2.png', 719), // mehrfarbiger Hintergrund rechter Teil
-    ];
-
+    level = level1;
     canvas; // (--> siehe unten im constructor)
     ctx; // Variable context
     keyboard;
@@ -28,7 +9,6 @@ class World {
 
 
     constructor(canvas, keyboard) { // wird aus init() mitgegeben
-        this.createBackgroundObjects();
 
         this.ctx = canvas.getContext('2d'); // in unser Objekt World wird canvas hineingegeben, später wollen wir dort Welt reinzeichnen
         // nicht direkt auf canvas malen möglich, sondern nur mit .getContext('2d')
@@ -41,29 +21,15 @@ class World {
     }
 
 
-    createBackgroundObjects() {
-        for (let i = 0; i <= 1; i++) {
-            this.backgroundObjects.push(new BackgroundObject('../img/5.Fondo/Capas/5.cielo_1920-1080px.png', 0 + 1437 * i)); // Himmel
-            this.backgroundObjects.push(new BackgroundObject('../img/5.Fondo/Capas/3.Fondo3/1.png', 0 + 1437 * i)); // pinker Hintergrund linker Teil
-            this.backgroundObjects.push(new BackgroundObject('../img/5.Fondo/Capas/2.Fondo2/1.png', 0 + 1437 * i));  // roter Hintergrund linker Teil
-            this.backgroundObjects.push(new BackgroundObject('../img/5.Fondo/Capas/1.suelo-fondo1/1.png', 0 + 1437 * i)); // mehrfarbiger Hintergrund linker Teil
-            this.backgroundObjects.push(new BackgroundObject('../img/5.Fondo/Capas/5.cielo_1920-1080px.png', 0 + 719)); // Himmel
-            this.backgroundObjects.push(new BackgroundObject('../img/5.Fondo/Capas/3.Fondo3/2.png', 719)); // pinker Hintergrund rechter Teil
-            this.backgroundObjects.push(new BackgroundObject('../img/5.Fondo/Capas/2.Fondo2/2.png', 719 ));  // roter Hintergrund rechter Teil
-            this.backgroundObjects.push(new BackgroundObject('../img/5.Fondo/Capas/1.suelo-fondo1/2.png', 719)); // mehrfarbiger Hintergrund rechter Teil
-        }
-    }
-
-
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // clears the canvas for redrawing
 
         this.ctx.translate(this.camera_x, 0);
 
-        this.addObjectsToMap(this.backgroundObjects);
+        this.addObjectsToMap(this.level.backgroundObjects);
         this.addToMap(this.character);
-        this.addObjectsToMap(this.enemies);
-        this.addObjectsToMap(this.clouds);
+        this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.clouds);
 
         this.ctx.translate(-this.camera_x, 0);
 
