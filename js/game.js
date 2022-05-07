@@ -1,5 +1,6 @@
 let canvas;
 let world;
+let keyboard = new Keyboard();
 
 
 function init() {
@@ -8,3 +9,12 @@ function init() {
 
     console.log('My Character is ', world['character']);
 }
+
+
+window.addEventListener('keydown', (ev) => { // arrow Tasten werden nur mit keydown erkannt
+    keyboard.checkKeyboardPress(ev);
+})
+
+window.addEventListener('keyup', (ev) => {
+    alert('key up');
+});
