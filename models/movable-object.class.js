@@ -41,4 +41,13 @@ class MovableObject {
             this.x -= this.speed; // was soll ausgeführt werden
         }, 1000 / 60); // 2. Parameter Millisekunden, also alle wieviel Zeit wiederholt wird
     }
+
+
+    playAnimation(images) {
+        let i = this.currentImage % images.length; // let i = 0 % 6 --> 0, Rest 6;    let i = 1 % 6 --> 0, Rest 1;     let i = 5 % 6 --> 0, Rest 5;     let i = 6 % 6 --> 1, Rest 0;     let i = 7 % 6 --> 1, Rest 1;
+        // i = 0, 1, 2, 3, 4, 5, 0, 1, 2,  --> immer der Rest aus der Division
+        let path = images[i]; // Pfad ist aus dem array die [x] Position
+        this.img = this.imageCache[path];
+        this.currentImage++;
+    }
 }
