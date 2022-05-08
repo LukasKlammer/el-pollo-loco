@@ -1,6 +1,6 @@
 class MovableObject {
     x = 120;
-    y = 280;
+    y = 80;
     img;
     height = 150;
     width = 120;
@@ -8,6 +8,23 @@ class MovableObject {
     currentImage = 0;
     speed = 0.1;
     otherDirection = false;
+    speedY = 0;
+    acceleration = 1;
+
+    applyGravity() {
+        setInterval(() => {
+            if (this.isAboveGround()) {
+                this.y -= this.speedY;
+                this.speedY -= this.acceleration;
+            }
+        }, 1000 / 25);
+    }
+
+
+    isAboveGround() {
+        return this.y < 180;
+    }
+
 
     // loadImage('img/test.png');
     loadImage(path) {
@@ -32,7 +49,9 @@ class MovableObject {
 
 
     moveRight() {
-        console.log('Moving right');
+        this.x += this.speed;
+        this.otherDirection = false;
+        this.walking_sound.play();
     }
 
 

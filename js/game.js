@@ -29,7 +29,6 @@ window.addEventListener('keydown', (ev) => { // arrow Tasten werden nur mit keyd
             keyboard.DOWN = true;
             break;
     }
-
 })
 
 window.addEventListener('keyup', (ev) => { // wenn Taste losgelassen wir alle Variablen keyboard zurücksetzen (stoppt Bewegungen)

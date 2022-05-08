@@ -2,7 +2,7 @@ class Character extends MovableObject {
 
     height = 300;
     width = 120;
-    y = 135;
+    y = 80;
     speed = 10;
 
     IMAGES_WALKING = [
@@ -22,6 +22,8 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_WALKING);
 
         this.animate();
+
+        this.applyGravity();
     }
 
 
@@ -30,12 +32,10 @@ class Character extends MovableObject {
         setInterval(() => {
             this.walking_sound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.x += this.speed;
-                this.otherDirection = false;
-                this.walking_sound.play();
+                this.moveRight();
             }
             if (this.world.keyboard.LEFT && this.x > 0) {
-                this.x -= this.speed;
+                this.x -= this.speed; // TODO -- own function implement (moveLeft is used by chicken)
                 this.otherDirection = true;
                 this.walking_sound.play();
             }
