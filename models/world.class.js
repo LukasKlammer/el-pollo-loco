@@ -9,7 +9,6 @@ class World {
 
 
     constructor(canvas, keyboard) { // wird aus init() mitgegeben
-
         this.ctx = canvas.getContext('2d'); // in unser Objekt World wird canvas hineingegeben, später wollen wir dort Welt reinzeichnen
         // nicht direkt auf canvas malen möglich, sondern nur mit .getContext('2d')
 
@@ -19,7 +18,6 @@ class World {
         this.draw(); // draw Methode haben wir bereits unten
         this.setWorld();
     }
-
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // clears the canvas for redrawing
@@ -44,7 +42,6 @@ class World {
         this.character.world = this; // character bekommt Variable world --> da ist alles aus world drin
     }
 
-
     /**
      * adds objects to map, for example all chickens
      * 
@@ -56,7 +53,6 @@ class World {
         });
     }
 
-
     /**
      * adds an object to the map
      * 
@@ -67,15 +63,15 @@ class World {
             this.flipImage(mo);
         }
 
-        this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height); // draw() Methode kann den context ctx nutzen und kann auf diesen verschiedene Methoden aufrufen, um Welt zu malen
-        // this.character.img ist das Bild
-        // this braucht es, weil wir von dieser Welt auf context zugreifen wollen, alle Variablen aus dieser Klasse mit this öffnen
+        mo.draw(this.ctx);
+
+        mo.drawFrame(this.ctx);
+
 
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }
     }
-
 
     flipImage(mo) {
         this.ctx.save(); // aktuelle Einstellungen ctx speichern

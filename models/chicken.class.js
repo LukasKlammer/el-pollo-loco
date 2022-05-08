@@ -22,7 +22,10 @@ class Chicken extends MovableObject {
     }
 
     animate() {
-        this.moveLeft();
+        
+        setInterval(() => {
+            this.moveLeft();
+        }, 1000 / 60); // 2. Parameter Millisekunden, also alle wieviel Zeit wiederholt wird
 
         setInterval(() => {
             this.playAnimation(this.IMAGES_WALKING);
