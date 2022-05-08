@@ -14,9 +14,9 @@ class World {
 
         this.canvas = canvas; // dem canvas von oben (HIER) wird das übergebene canvas zugewiesen
         this.keyboard = keyboard;
-
         this.draw(); // draw Methode haben wir bereits unten
         this.setWorld();
+        this.checkCollisions();
     }
 
     draw() {
@@ -40,6 +40,16 @@ class World {
 
     setWorld() {
         this.character.world = this; // character bekommt Variable world --> da ist alles aus world drin
+    }
+
+    checkCollisions() {
+        setInterval(() => {
+            this.level.enemies.forEach((enemy) => {
+                if (this.character.isColliding(enemy)) {
+                    console.log('collision with Character ', enemy);
+                }
+            });
+        }, 200);
     }
 
     /**
@@ -84,4 +94,5 @@ class World {
         mo.x = mo.x * -1;
         this.ctx.restore();
     }
+
 }
