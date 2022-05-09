@@ -60,7 +60,7 @@ class MovableObject extends DrawableObject {
     isHurt() {
         let timePassed = new Date().getTime() - this.lastHit; // difference in ms
         timePassed = timePassed / 1000; // difference in seconds
-        return timePassed < 0.5; // time while return true
+        return timePassed < 0.25; // time while return true
     }
 
     // wenn energy 0 ist returned die Funktion true

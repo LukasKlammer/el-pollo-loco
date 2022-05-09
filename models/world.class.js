@@ -21,17 +21,18 @@ class World {
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // clears the canvas for redrawing
-
+        
+        // ----- space for moved objects ----- //
         this.ctx.translate(this.camera_x, 0);
-
         this.addObjectsToMap(this.level.backgroundObjects);
-        this.addToMap(this.statusBar);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
-
+        
+        // ----- space for fixed objects ----- //
         this.ctx.translate(-this.camera_x, 0);
-
+        this.addToMap(this.statusBar);
+        
         let self = this;
         requestAnimationFrame(function () { // ins requestAnimationFrame wird eine Funktion reingegeben, die wird ausgeführt, sobald alles drüber fertig gezeichnet wurde (asynchron)
             self.draw(); // Problem: this kennt er da drin nicht mehr: Variable namens self und this da zuweisen, dann geht es
@@ -48,7 +49,7 @@ class World {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy)) {
                     this.character.hit();
-                    
+                    this.statusBar.setPercentage(this.character.energy);
                 }
             });
         }, 200);
