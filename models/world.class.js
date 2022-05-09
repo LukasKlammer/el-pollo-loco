@@ -6,7 +6,7 @@ class World {
     ctx; // Variable context
     keyboard;
     camera_x = 0;
-
+    statusBar = new StatusBar();
 
     constructor(canvas, keyboard) { // wird aus init() mitgegeben
         this.ctx = canvas.getContext('2d'); // in unser Objekt World wird canvas hineingegeben, später wollen wir dort Welt reinzeichnen
@@ -25,6 +25,7 @@ class World {
         this.ctx.translate(this.camera_x, 0);
 
         this.addObjectsToMap(this.level.backgroundObjects);
+        this.addToMap(this.statusBar);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
