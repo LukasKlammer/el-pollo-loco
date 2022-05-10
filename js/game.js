@@ -27,14 +27,17 @@ window.addEventListener('keydown', (ev) => { // arrow Tasten werden nur mit keyd
             break;
         case 40:
             keyboard.DOWN = true;
+            break;        
+        case 68:
+            keyboard.D = true;
             break;
     }
 })
 
 window.addEventListener('keyup', (ev) => { // wenn Taste losgelassen wir alle Variablen keyboard zurücksetzen (stoppt Bewegungen)
-    keyboard.LEFT = false;
-    keyboard.RIGHT = false;
-    keyboard.UP = false;
-    keyboard.DOWN = false;
     keyboard.SPACE = false;
+    keyboard.LEFT = false;
+    keyboard.UP = false;
+    keyboard.RIGHT = false;
+    keyboard.D = false;
 });

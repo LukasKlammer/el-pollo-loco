@@ -7,6 +7,7 @@ class World {
     keyboard;
     camera_x = 0;
     statusBar = new StatusBar();
+    throwableObject = [];
 
     constructor(canvas, keyboard) { // wird aus init() mitgegeben
         this.ctx = canvas.getContext('2d'); // in unser Objekt World wird canvas hineingegeben, später wollen wir dort Welt reinzeichnen
@@ -16,23 +17,24 @@ class World {
         this.keyboard = keyboard;
         this.draw(); // draw Methode haben wir bereits unten
         this.setWorld();
-        this.checkCollisions();
+        this.run(); // war vorher checkCollision() --> jetzt allgemeiner run() --> nicht zu viele Intervalle laufen lassen
     }
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // clears the canvas for redrawing
-        
+
         // ----- space for moved objects ----- //
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addToMap(this.character);
-        this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
-        
+        this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.throwableObject);
+
         // ----- space for fixed objects ----- //
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBar);
-        
+
         let self = this;
         requestAnimationFrame(function () { // ins requestAnimationFrame wird eine Funktion reingegeben, die wird ausgeführt, sobald alles drüber fertig gezeichnet wurde (asynchron)
             self.draw(); // Problem: this kennt er da drin nicht mehr: Variable namens self und this da zuweisen, dann geht es
@@ -42,18 +44,9 @@ class World {
 
     setWorld() {
         this.character.world = this; // character bekommt Variable world --> da ist alles aus world drin
+        this.throwableObject.world = this;
     }
 
-    checkCollisions() {
-        setInterval(() => {
-            this.level.enemies.forEach((enemy) => {
-                if (this.character.isColliding(enemy)) {
-                    this.character.hit();
-                    this.statusBar.setPercentage(this.character.energy);
-                }
-            });
-        }, 200);
-    }
 
     /**
      * adds objects to map, for example all chickens
@@ -77,9 +70,7 @@ class World {
         }
 
         mo.draw(this.ctx);
-
         mo.drawFrame(this.ctx);
-
 
         if (mo.otherDirection) {
             this.flipImageBack(mo);
@@ -96,6 +87,29 @@ class World {
     flipImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();
+    }
+
+    run() {
+        setInterval(() => {
+            this.checkCollisions();
+            this.checkThrowObjects();
+        }, 200);
+    }
+
+    checkCollisions() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                this.character.hit();
+                this.statusBar.setPercentage(this.character.energy);
+            }
+        });
+    }
+
+    checkThrowObjects() {
+        if (this.keyboard.D) {
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+            this.throwableObject.push(bottle);
+        }
     }
 
 }
