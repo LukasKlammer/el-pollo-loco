@@ -4,7 +4,9 @@ let keyboard = new Keyboard();
 
 
 function init() {
+    document.getElementById('start-screen').classList.add('d-none');
     canvas = document.getElementById('canvas'); // der Variable canvas weisen wir das canvas aus dem index HTML zu
+    canvas.classList.remove('d-none');
     world = new World(canvas, keyboard); // Variable world, legen neues Objekt namens world an, der geben wir canvas als Variable mit; wir können bei Erstellung diverse Variablen an Objekte mitgeben
 
     console.log('My Character is ', world['character']);
@@ -13,6 +15,9 @@ function init() {
 
 window.addEventListener('keydown', (ev) => { // arrow Tasten werden nur mit keydown erkannt
     switch (ev.keyCode) {
+        case 13:
+            init();
+            break;
         case 32:
             keyboard.SPACE = true;
             break;

@@ -1,9 +1,30 @@
 body {
+    margin: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+.window {
+    width: 720px;
+    height: 480px;
+}
+
 canvas {
     background-color: black;
+}
+
+.start-screen {
+    width: 100%;
+    height: 100%;
+    transition: all 125 ease-in-out;
+}
+
+.start-screen:hover {
+    cursor: pointer;
+    box-shadow: 2px 2px 5px 2px #b4b4b4;
+}
+
+.d-none {
+    display: none;
 }
