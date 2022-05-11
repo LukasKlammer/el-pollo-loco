@@ -7,7 +7,7 @@ class World {
     keyboard;
     camera_x = 0;
     statusBar = new StatusBar();
-    throwableObject = [];
+    throwableObjects = [];
     background_sound = new Audio('../audio/background_music.mp3');
 
     constructor(canvas, keyboard) { // wird aus init() mitgegeben
@@ -30,7 +30,7 @@ class World {
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.throwableObject);
+        this.addObjectsToMap(this.throwableObjects);
 
         // ----- space for fixed objects ----- //
         this.ctx.translate(-this.camera_x, 0);
@@ -45,7 +45,7 @@ class World {
 
     setWorld() {
         this.character.world = this; // character bekommt Variable world --> da ist alles aus world drin
-        this.throwableObject.world = this;
+        this.throwableObjects.world = this;
     }
 
 
@@ -103,15 +103,28 @@ class World {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
                 this.character.hit();
+                enemy.hit();
                 this.statusBar.setPercentage(this.character.energy);
             }
         });
+
+        this.throwableObjects.forEach(bottle => {
+            this.level.enemies.forEach(enemy => {
+                if (enemy.isColliding(bottle)) {
+                    enemy.hit();
+                }
+            });
+        });
+
+        // if this.level.enemies.enemyx isTrampled(this.character)
+        // enemy.energy = 0;
+        // enemies.splice ...
     }
 
     checkThrowObjects() {
         if (this.keyboard.D) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
-            this.throwableObject.push(bottle);
+            this.throwableObjects.push(bottle);
         }
     }
 

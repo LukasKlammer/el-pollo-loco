@@ -40,7 +40,7 @@ class Character extends MovableObject {
     IMAGES_HURT = [
         '../img/2.Secuencias_Personaje-Pepe-corrección/4.Herido/H-41.png',
         '../img/2.Secuencias_Personaje-Pepe-corrección/4.Herido/H-42.png',
-        '../img/2.Secuencias_Personaje-Pepe-corrección/4.Herido/H-43.png',
+        '../img/2.Secuencias_Personaje-Pepe-corrección/4.Herido/H-43.png'
     ]
 
     world;
@@ -84,7 +84,7 @@ class Character extends MovableObject {
         }, 1000 / 60);
 
 
-        // walk animation
+        // walk, hurt, jump, dead animation
         setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
