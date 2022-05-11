@@ -8,6 +8,7 @@ class World {
     camera_x = 0;
     statusBar = new StatusBar();
     throwableObject = [];
+    background_sound = new Audio('../audio/background_music.mp3');
 
     constructor(canvas, keyboard) { // wird aus init() mitgegeben
         this.ctx = canvas.getContext('2d'); // in unser Objekt World wird canvas hineingegeben, später wollen wir dort Welt reinzeichnen
@@ -90,9 +91,11 @@ class World {
     }
 
     run() {
+        this.background_sound.volume = 0.2;
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
+            this.background_sound.play();
         }, 200);
     }
 

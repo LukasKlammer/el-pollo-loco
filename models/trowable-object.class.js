@@ -3,6 +3,8 @@ class ThrowableObject extends MovableObject {
     width = 100;
     keyboard = false;
     world;
+    throw_sound = new Audio('../audio/throw_bottle.mp3');
+    bottle_break_sound = new Audio('../audio/bottle_break.mp3');
 
     IMAGES_BOTTLE_ROTATION = [
         '../img/6.botella/Rotación/Mesa de trabajo 1 copia 3.png',
@@ -39,6 +41,7 @@ class ThrowableObject extends MovableObject {
     }
 
     throw() {
+        this.throw_sound.play();
         this.speedY = 15;
         this.applyGravity();
         setInterval(() => {
