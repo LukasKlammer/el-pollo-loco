@@ -7,7 +7,7 @@ class World {
     keyboard;
     camera_x = 0;
     statusBar = new StatusBar();
-    availableThrowObjects = 2;
+    availableThrowObjects = 0;
     throwableObjects = [];
     background_sound = new Audio('../audio/background_music.mp3');
 
@@ -30,6 +30,7 @@ class World {
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
 
@@ -103,6 +104,7 @@ class World {
     checkCollisions() {
         this.collisionEnemyCharacter();
         this.collisionThrowableObjectEnemy();
+        this.collisionCharacterBottle();
     }
 
     collisionEnemyCharacter() {
@@ -112,7 +114,7 @@ class World {
                 enemy.death_sound.play();
                 this.removeFromWorld(this.level.enemies, index);
             } else if (!this.character.isTrampled(enemy) && this.character.isColliding(enemy) && enemy.energy > 0) {
-                this.character.hit();
+                this.character.hit(5);
                 this.statusBar.setPercentage(this.character.energy);
             }
         });
@@ -125,9 +127,19 @@ class World {
                     enemy.kill();
                     enemy.death_sound.play();
                     throwableObject.breakBottle();
-                    this.removeFromWorld(this.level.enemies, index);
+                    this.removeFromWorld(this.level.enemies, index, 2000);
                 }
             });
+        });
+    }
+
+    collisionCharacterBottle() {
+        this.level.bottles.forEach((bottle, index) => {
+            if (this.character.isColliding(bottle)) {
+                bottle.collected_sound.play();
+                this.removeFromWorld(this.level.bottles, index, 0);
+                this.availableThrowObjects++;
+            }
         });
     }
 
@@ -143,10 +155,10 @@ class World {
         }
     }
 
-    removeFromWorld(array, index) {
+    removeFromWorld(array, index, timeout) {
         setTimeout(() => {
             array.splice(index, 1);
-        }, 2000);
+        }, timeout);
     }
 
 }
