@@ -98,7 +98,7 @@ class World {
             this.checkCollisions();
             this.checkThrowObjects();
             this.background_sound.play();
-        }, 200);
+        }, 100);
     }
 
     checkCollisions() {
