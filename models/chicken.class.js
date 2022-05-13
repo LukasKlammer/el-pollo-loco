@@ -4,6 +4,8 @@ class Chicken extends MovableObject {
     width = 60;
     y = 360;
 
+    death_sound = new Audio('../audio/chicken_death.mp3');
+
     IMAGES_WALKING = [
         '../img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/1.Ga_paso_derecho.png',
         '../img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/2-Ga_centro.png',
@@ -41,11 +43,6 @@ class Chicken extends MovableObject {
         }, 150);
     }
 
-    isTrampled(mo) {
-        return this.x + this.width > mo.x &&
-            this.y + this.height > mo.y &&
-            this.x < mo.x &&
-            this.y < mo.y + mo.height;
-    }
+
 
 }

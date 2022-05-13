@@ -42,10 +42,14 @@ class ThrowableObject extends MovableObject {
 
     throw() {
         this.throw_sound.play();
-        this.speedY = 15;
+        this.speedY = 13;
         this.applyGravity();
         setInterval(() => {
-            this.x += 10;
+            this.x += 7;
         }, 25);
+    }
+
+    breakBottle() {
+        this.bottle_break_sound.play();
     }
 }

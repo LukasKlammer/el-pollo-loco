@@ -4,6 +4,7 @@ class Endboss extends MovableObject {
     width = 300;
     x = 2550;
     y = 55;
+    death_sound = new Audio('../audio/endboss_death.mp3');
 
     IMAGES_WALKING = [
         '../img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/1.Alerta/G5.png',
@@ -29,7 +30,6 @@ class Endboss extends MovableObject {
     ]
 
     constructor() {
-
         super().loadImage('../img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/1.Alerta/G5.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_DEAD);

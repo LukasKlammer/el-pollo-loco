@@ -96,29 +96,43 @@ class World {
             this.checkCollisions();
             this.checkThrowObjects();
             this.background_sound.play();
-        }, 200);
+        }, 100);
     }
 
     checkCollisions() {
-        this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
-                this.character.hit();
-                enemy.hit();
-                this.statusBar.setPercentage(this.character.energy);
-            }
-        });
+        this.collisionEnemyCharacter();
+        this.collisionThrowableObjectEnemy();
 
-        this.throwableObjects.forEach(bottle => {
-            this.level.enemies.forEach(enemy => {
-                if (enemy.isColliding(bottle)) {
-                    enemy.hit();
-                }
-            });
-        });
 
         // if this.level.enemies.enemyx isTrampled(this.character)
         // enemy.energy = 0;
         // enemies.splice ...
+    }
+
+    collisionEnemyCharacter() {
+        this.level.enemies.forEach((enemy, index) => {
+            if (this.character.isTrampled(enemy)) {
+                enemy.kill();
+                enemy.death_sound.play();
+                this.removeFromWorld(this.level.enemies, index);
+            } else if (this.character.isColliding(enemy)) {
+                this.character.hit();
+                this.statusBar.setPercentage(this.character.energy);
+            }
+        });
+    }
+
+    collisionThrowableObjectEnemy() {
+        this.throwableObjects.forEach(throwableObject => {
+            this.level.enemies.forEach((enemy, index) => {
+                if (enemy.isColliding(throwableObject)) {
+                    enemy.kill();
+                    enemy.death_sound.play();
+                    throwableObject.breakBottle();
+                    this.removeFromWorld(this.level.enemies, index);
+                }
+            });
+        });
     }
 
     checkThrowObjects() {
@@ -126,6 +140,12 @@ class World {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bottle);
         }
+    }
+
+    removeFromWorld(array, index) {
+        setTimeout(() => {
+            array.splice(index, 1);
+        }, 200);
     }
 
 }

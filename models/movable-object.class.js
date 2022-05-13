@@ -52,6 +52,13 @@ class MovableObject extends DrawableObject {
             this.y < mo.y + mo.height;
     }
 
+    isTrampled(mo) {
+        return this.x + this.width > mo.x &&
+        this.y + this.height > mo.y &&
+        this.x < mo.x &&
+        this.y < mo.y + mo.height;
+    }
+
     hit() {
         this.energy -= 5;
         if (this.energy < 0) {
@@ -70,6 +77,11 @@ class MovableObject extends DrawableObject {
     // wenn energy 0 ist returned die Funktion true
     isDead() {
         return this.energy == 0;
+    }
+
+    kill() {
+        this.energy = 0;
+        this.speed = 0;
     }
 
 }
