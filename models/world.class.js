@@ -123,11 +123,13 @@ class World {
     collisionThrowableObjectEnemy() {
         this.throwableObjects.forEach(throwableObject => {
             this.level.enemies.forEach((enemy, index) => {
-                if (enemy.isColliding(throwableObject)) {
-                    enemy.kill();
-                    enemy.death_sound.play();
+                if (enemy.isColliding(throwableObject) && throwableObject.energy > 0) {
+                    enemy.hit(35);
                     throwableObject.breakBottle();
-                    this.removeFromWorld(this.level.enemies, index, 2000);
+                    if (enemy.energy <= 0) {
+                        enemy.death_sound.play();
+                        this.removeFromWorld(this.level.enemies, index, 2000);
+                    }
                 }
             });
         });
