@@ -46,6 +46,7 @@ class Character extends MovableObject {
     world;
     walking_sound = new Audio('../audio/running.mp3');
     jumping_sound = new Audio('../audio/character_jumping.mp3');
+    wrong_sound = new Audio('../audio/wrong.mp3');
 
 
     constructor() {
@@ -60,9 +61,7 @@ class Character extends MovableObject {
         this.applyGravity();
     }
 
-
     animate() {
-
         // move animation
         setInterval(() => {
             this.walking_sound.pause();

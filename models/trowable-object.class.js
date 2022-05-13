@@ -27,6 +27,7 @@ class ThrowableObject extends MovableObject {
         this.x = x;
         this.y = y;
         this.loadImages(this.IMAGES_BOTTLE_ROTATION);
+        this.loadImages(this.IMAGES_BOTTLE_SPLASH);
         this.throw();
 
         this.animate();
@@ -34,10 +35,12 @@ class ThrowableObject extends MovableObject {
 
     animate() {
         setInterval(() => {
-            // if (this.world.keyboard.D) {
-            //     console.log('animate korrekt aufgerufen');
-            // }
-        }, 1000 / 60);
+            if (this.isDead()) {
+                this.playAnimation(this.IMAGES_BOTTLE_SPLASH);
+            } else {
+                this.playAnimation(this.IMAGES_BOTTLE_ROTATION);
+            }
+        }, 100);
     }
 
     throw() {
@@ -50,6 +53,7 @@ class ThrowableObject extends MovableObject {
     }
 
     breakBottle() {
+        this.energy = 0;
         this.bottle_break_sound.play();
     }
 }

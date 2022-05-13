@@ -7,6 +7,7 @@ class World {
     keyboard;
     camera_x = 0;
     statusBar = new StatusBar();
+    availableThrowObjects = 2;
     throwableObjects = [];
     background_sound = new Audio('../audio/background_music.mp3');
 
@@ -96,17 +97,12 @@ class World {
             this.checkCollisions();
             this.checkThrowObjects();
             this.background_sound.play();
-        }, 100);
+        }, 200);
     }
 
     checkCollisions() {
         this.collisionEnemyCharacter();
         this.collisionThrowableObjectEnemy();
-
-
-        // if this.level.enemies.enemyx isTrampled(this.character)
-        // enemy.energy = 0;
-        // enemies.splice ...
     }
 
     collisionEnemyCharacter() {
@@ -115,7 +111,7 @@ class World {
                 enemy.kill();
                 enemy.death_sound.play();
                 this.removeFromWorld(this.level.enemies, index);
-            } else if (this.character.isColliding(enemy)) {
+            } else if (!this.character.isTrampled(enemy) && this.character.isColliding(enemy) && enemy.energy > 0) {
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.energy);
             }
@@ -137,15 +133,20 @@ class World {
 
     checkThrowObjects() {
         if (this.keyboard.D) {
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
-            this.throwableObjects.push(bottle);
+            if (this.availableThrowObjects == 0) {
+                this.character.wrong_sound.play();
+            } else if (this.availableThrowObjects > 0) {
+                let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+                this.throwableObjects.push(bottle);
+                this.availableThrowObjects--;
+            }
         }
     }
 
     removeFromWorld(array, index) {
         setTimeout(() => {
             array.splice(index, 1);
-        }, 200);
+        }, 2000);
     }
 
 }
