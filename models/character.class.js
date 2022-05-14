@@ -5,6 +5,7 @@ class Character extends MovableObject {
     y = 40;
     speed = 10;
     availableThrowObjects = 0;
+    availableCoins = 0;
     lastThrow = 0;
     world;
 
@@ -99,7 +100,7 @@ class Character extends MovableObject {
     }
 
     timePassedAfterThrow() {
-        return this.timerOfAction(this.lastThrow);
+        return this.timerOfAction(this.lastThrow) > 0.5; // returns true if timePassed > 0.5 seconds
     }
 
 }

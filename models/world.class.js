@@ -109,6 +109,7 @@ class World {
         this.collisionEnemyCharacter();
         this.collisionThrowableObjectEnemy();
         this.collisionCharacterBottle();
+        this.collisionCharacterCoin();
     }
 
     collisionEnemyCharacter() {
@@ -150,11 +151,23 @@ class World {
         });
     }
 
+    collisionCharacterCoin() {
+        this.level.coins.forEach((coin, index) => {
+            if (this.character.isColliding(coin)) {
+                coin.collected_sound.play();
+                this.removeFromWorld(this.level.coins, index, 0);
+                this.character.availableCoins++;
+                console.log(this.character.availableCoins);
+                this.coinsStatusBar.setPercentage(this.character.availableCoins, 10);
+            }
+        });
+    }
+
     checkThrowObjects() {
         if (this.keyboard.D) {
             if (this.character.availableThrowObjects == 0) {
                 this.character.wrong_sound.play();
-            } else if (this.character.availableThrowObjects > 0 && this.character.timePassedAfterThrow() > 1) {
+            } else if (this.character.availableThrowObjects > 0 && this.character.timePassedAfterThrow()) {
                 this.character.lastThrow = new Date().getTime();
                 let throwableObject = new ThrowableObject(this.character.x + 100, this.character.y + 100);
                 this.throwableObjects.push(throwableObject);

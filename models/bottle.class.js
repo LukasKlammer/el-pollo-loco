@@ -8,7 +8,7 @@ class Bottle extends MovableObject {
     constructor() {
         super().loadImage(`../img/6.botella/2.Botella_enterrada${this.imageDirection}.png`);
 
-        this.x = Math.random() * 2500; // Zahl zwischen 0 und 2500
+        this.x = Math.random() * 2200; // Zahl zwischen 0 und 2500
         this.y = 330;
 
     }

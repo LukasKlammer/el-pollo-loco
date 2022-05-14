@@ -1,14 +1,14 @@
 class Coin extends MovableObject {
-    height = 100;
-    width = 100;
+    height = 120;
+    width = 120;
 
     collected_sound = new Audio('../audio/collected.mp3');
 
     constructor() {
-        super().loadImage('../img/8.Coin/Moneda1.png');
+        super().loadImage('../img/8.Coin/Moneda2.png');
 
-        this.x = Math.random() * 2500; // Zahl zwischen 0 und 2500
-        this.y = 330;
+        this.x = Math.random() * 2200; // Zahl zwischen 0 und 2500
+        this.y = 30 + Math.random() * 340;
         
     }
 }

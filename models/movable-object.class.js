@@ -1,6 +1,6 @@
 class MovableObject extends DrawableObject {
     // Variablen nur für bewegbare Objekte
-    speed = 0.1;
+    speed = 0.05;
     speedY = 0;
     acceleration = 1;
     energy = 100;
@@ -33,7 +33,7 @@ class MovableObject extends DrawableObject {
     }
 
     jump() {
-        this.speedY = 20;
+        this.speedY = 16;
     }
 
     playAnimation(images) {
