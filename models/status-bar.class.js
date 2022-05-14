@@ -1,5 +1,10 @@
 class StatusBar extends DrawableObject {
 
+
+    percentage;
+    typeOfStatusBar;
+
+
     IMAGES_LIFE_BARS = [
         '../img/7.Marcadores/Barra/Marcador vida/verde/0_.png', // Pfad 0
         '../img/7.Marcadores/Barra/Marcador vida/verde/20_.png',
@@ -15,34 +20,63 @@ class StatusBar extends DrawableObject {
         '../img/7.Marcadores/Barra/Marcador_botella/Verde/40_.png',
         '../img/7.Marcadores/Barra/Marcador_botella/Verde/60_.png',
         '../img/7.Marcadores/Barra/Marcador_botella/Verde/80_.png',
-        '../img/7.Marcadores/Barra/Marcador_botella/Verde/1000_.png' // Pfad 5
+        '../img/7.Marcadores/Barra/Marcador_botella/Verde/100_.png' // Pfad 5
     ]
 
     IMAGES_COINS_BARS = [
-        '../img/7.Marcadores/Barra/Marcador vida/verde/0_.png', // Pfad 0
-        '../img/7.Marcadores/Barra/Marcador vida/verde/20_.png',
-        '../img/7.Marcadores/Barra/Marcador vida/verde/40_.png',
-        '../img/7.Marcadores/Barra/Marcador vida/verde/60_.png',
-        '../img/7.Marcadores/Barra/Marcador vida/verde/80_.png',
-        '../img/7.Marcadores/Barra/Marcador vida/verde/100_.png' // Pfad 5
+        '../img/7.Marcadores/Barra/Marcador_botella/Verde/0_.png', // Pfad 0
+        '../img/7.Marcadores/Barra/Marcador_botella/Verde/20_.png',
+        '../img/7.Marcadores/Barra/Marcador_botella/Verde/40_.png',
+        '../img/7.Marcadores/Barra/Marcador_botella/Verde/60_.png',
+        '../img/7.Marcadores/Barra/Marcador_botella/Verde/80_.png',
+        '../img/7.Marcadores/Barra/Marcador_botella/Verde/100_.png' // Pfad 5
+
     ]
 
-    percentage = 100;
-    
+
     /**
      * 
-     * @param {*} y 
-     * @param {string} whichStatusBar 
+     * @param {integer} y from top of canvas - places StatusBar on the y offset
+     * @param {string} typeOfStatusBar - for example life, bottles or coins
      */
-    constructor(y, whichStatusBar) {
-        console.log(whichStatusBar);
+    constructor(y, typeOfStatusBar) {
         super(); // muss immer rein --> Methoden vom übergeordneten Objekt initialisieren
-        this.loadImages(this.IMAGES_LIFE_BARS);
+        this.typeOfStatusBar = typeOfStatusBar;
+        this.loadImages(this.imagesOfStatusbar());
         this.x = 40;
         this.y = y;
         this.width = 200;
         this.height = 60;
-        this.setPercentage(100); // muss am Anfang mal aufgerufen werden
+        this.initalizePercentage();
+        this.setPercentage(this.percentage); // muss am Anfang mal aufgerufen werden
+    }
+
+    imagesOfStatusbar() {
+        switch (this.typeOfStatusBar) {
+            case 'life':
+                return this.IMAGES_LIFE_BARS;
+                break;
+            case 'bottles':
+                return this.IMAGES_BOTTLES_BARS;
+                break;
+            case 'coins':
+                return this.IMAGES_COINS_BARS;
+                break;
+        }
+    }
+
+    initalizePercentage() {
+        switch (this.typeOfStatusBar) {
+            case 'life':
+                this.percentage = 100;
+                break;
+            case 'bottles':
+                this.percentage = 0;
+                break;
+            case 'coins':
+                this.percentage = 0;
+                break;
+        }
     }
 
     /**
@@ -50,10 +84,10 @@ class StatusBar extends DrawableObject {
      * 
      * @param {integer} percentage gives in the percentage as a number
      */
-    setPercentage(percentage) {
+    setPercentage(percentage, typeOfStatusBar) {
         this.percentage = percentage; // Zahl zwischen 0 und 5 ermitteln
         let i = this.resolveImageIndex();
-        let path = this.IMAGES_LIFE_BARS[i];
+        let path = this.imagesOfStatusbar()[i];
         this.img = this.imageCache[path];
     }
 

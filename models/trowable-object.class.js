@@ -1,6 +1,7 @@
 class ThrowableObject extends MovableObject {
     height = 100;
     width = 100;
+    
     throw_sound = new Audio('../audio/throw_bottle.mp3');
     bottle_break_sound = new Audio('../audio/bottle_break.mp3');
 

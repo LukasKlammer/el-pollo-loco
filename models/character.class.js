@@ -6,7 +6,11 @@ class Character extends MovableObject {
     speed = 10;
     availableThrowObjects = 0;
     lastThrow = 0;
+    world;
 
+    walking_sound = new Audio('../audio/running.mp3');
+    jumping_sound = new Audio('../audio/character_jumping.mp3');
+    wrong_sound = new Audio('../audio/wrong.mp3');
 
     IMAGES_WALKING = [
         '../img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png',
@@ -45,11 +49,6 @@ class Character extends MovableObject {
         '../img/2.Secuencias_Personaje-Pepe-corrección/4.Herido/H-42.png',
         '../img/2.Secuencias_Personaje-Pepe-corrección/4.Herido/H-43.png'
     ]
-
-    world;
-    walking_sound = new Audio('../audio/running.mp3');
-    jumping_sound = new Audio('../audio/character_jumping.mp3');
-    wrong_sound = new Audio('../audio/wrong.mp3');
 
 
     constructor() {

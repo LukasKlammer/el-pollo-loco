@@ -4,6 +4,7 @@ class Endboss extends MovableObject {
     width = 300;
     x = 2550;
     y = 55;
+    
     death_sound = new Audio('../audio/endboss_death.mp3');
 
     IMAGES_WALKING = [
