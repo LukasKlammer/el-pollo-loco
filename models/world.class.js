@@ -6,9 +6,9 @@ class World {
     ctx; // Variable context
     keyboard;
     camera_x = 0;
-    lifeStatusBar = new StatusBar(0, 'life');
-    bottlesStatusBar = new StatusBar(35, 'bottles');
-    coinsStatusBar = new StatusBar(70, 'coins');
+    lifeStatusBar = new StatusBar(0, 'life', 100);
+    bottlesStatusBar = new StatusBar(40, 'bottles', 0);
+    coinsStatusBar = new StatusBar(80, 'coins', 0);
     throwableObjects = [];
     background_sound = new Audio('../audio/background_music.mp3');
 
@@ -33,6 +33,7 @@ class World {
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.throwableObjects);
 
         // ----- space for fixed objects ----- //
@@ -118,7 +119,7 @@ class World {
                 this.removeFromWorld(this.level.enemies, index);
             } else if (!this.character.isTrampled(enemy) && this.character.isColliding(enemy) && enemy.energy > 0) {
                 this.character.hit(5);
-                this.lifeStatusBar.setPercentage(this.character.energy);
+                this.lifeStatusBar.setPercentage(this.character.energy, 100);
             }
         });
     }
@@ -144,6 +145,7 @@ class World {
                 bottle.collected_sound.play();
                 this.removeFromWorld(this.level.bottles, index, 0);
                 this.character.availableThrowObjects++;
+                this.bottlesStatusBar.setPercentage(this.character.availableThrowObjects, 10);
             }
         });
     }
@@ -154,9 +156,10 @@ class World {
                 this.character.wrong_sound.play();
             } else if (this.character.availableThrowObjects > 0 && this.character.timePassedAfterThrow() > 1) {
                 this.character.lastThrow = new Date().getTime();
-                let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
-                this.throwableObjects.push(bottle);
+                let throwableObject = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+                this.throwableObjects.push(throwableObject);
                 this.character.availableThrowObjects--;
+                this.bottlesStatusBar.setPercentage(this.character.availableThrowObjects, 10);
             }
         }
     }
