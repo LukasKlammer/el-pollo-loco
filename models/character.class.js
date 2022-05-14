@@ -4,6 +4,9 @@ class Character extends MovableObject {
     width = 120;
     y = 40;
     speed = 10;
+    availableThrowObjects = 0;
+    lastThrow = 0;
+
 
     IMAGES_WALKING = [
         '../img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png',
@@ -94,6 +97,10 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_WALKING);
             }
         }, 50);
-}
+    }
+
+    timePassedAfterThrow() {
+        return this.timerOfAction(this.lastThrow);
+    }
 
 }

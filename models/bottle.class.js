@@ -14,7 +14,4 @@ class Bottle extends MovableObject {
     }
 
 
-    
-
-
 }

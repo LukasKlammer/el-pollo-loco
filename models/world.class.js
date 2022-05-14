@@ -6,8 +6,9 @@ class World {
     ctx; // Variable context
     keyboard;
     camera_x = 0;
-    statusBar = new StatusBar();
-    availableThrowObjects = 0;
+    lifeStatusBar = new StatusBar(0, 'life');
+    bottlesStatusBar = new StatusBar(35, 'bottles');
+    coinsStatusBar = new StatusBar(70, 'coins');
     throwableObjects = [];
     background_sound = new Audio('../audio/background_music.mp3');
 
@@ -36,7 +37,9 @@ class World {
 
         // ----- space for fixed objects ----- //
         this.ctx.translate(-this.camera_x, 0);
-        this.addToMap(this.statusBar);
+        this.addToMap(this.lifeStatusBar);
+        this.addToMap(this.bottlesStatusBar);
+        this.addToMap(this.coinsStatusBar);
 
         let self = this;
         requestAnimationFrame(function () { // ins requestAnimationFrame wird eine Funktion reingegeben, die wird ausgeführt, sobald alles drüber fertig gezeichnet wurde (asynchron)
@@ -115,7 +118,7 @@ class World {
                 this.removeFromWorld(this.level.enemies, index);
             } else if (!this.character.isTrampled(enemy) && this.character.isColliding(enemy) && enemy.energy > 0) {
                 this.character.hit(5);
-                this.statusBar.setPercentage(this.character.energy);
+                this.lifeStatusBar.setPercentage(this.character.energy);
             }
         });
     }
@@ -140,19 +143,20 @@ class World {
             if (this.character.isColliding(bottle)) {
                 bottle.collected_sound.play();
                 this.removeFromWorld(this.level.bottles, index, 0);
-                this.availableThrowObjects++;
+                this.character.availableThrowObjects++;
             }
         });
     }
 
     checkThrowObjects() {
         if (this.keyboard.D) {
-            if (this.availableThrowObjects == 0) {
+            if (this.character.availableThrowObjects == 0) {
                 this.character.wrong_sound.play();
-            } else if (this.availableThrowObjects > 0) {
+            } else if (this.character.availableThrowObjects > 0 && this.character.timePassedAfterThrow() > 1) {
+                this.character.lastThrow = new Date().getTime();
                 let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
                 this.throwableObjects.push(bottle);
-                this.availableThrowObjects--;
+                this.character.availableThrowObjects--;
             }
         }
     }

@@ -69,10 +69,21 @@ class MovableObject extends DrawableObject {
         }
     }
 
-    isHurt() {
-        let timePassed = new Date().getTime() - this.lastHit; // difference in ms
+    /**
+     * calculates the passed time from an event and gives it in seconds
+     * 
+     * @param {integer} lastActionEventTime requires the number of ms since 1.1.1970 (Unix time stamp)
+     * @returns time passed in seconds
+     */
+    timerOfAction(lastActionEventTime) {
+        let timePassed = new Date().getTime() - lastActionEventTime; // difference in ms
         timePassed = timePassed / 1000; // difference in seconds
-        return timePassed < 0.25; // time while return true
+        return timePassed; // time while return true
+    }
+
+    isHurt() {
+        let timePassed = this.timerOfAction(this.lastHit);
+        return timePassed < 1;
     }
 
     // wenn energy 0 ist returned die Funktion true
