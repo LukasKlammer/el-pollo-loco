@@ -117,7 +117,7 @@ class World {
             if (this.character.isTrampled(enemy)) {
                 enemy.kill();
                 enemy.death_sound.play();
-                this.removeFromWorld(this.level.enemies, index);
+                this.removeFromWorld(this.level.enemies, index, 2000);
             } else if (!this.character.isTrampled(enemy) && this.character.isColliding(enemy) && enemy.energy > 0) {
                 this.character.hit(5);
                 this.lifeStatusBar.setPercentage(this.character.energy, 100);
@@ -157,7 +157,6 @@ class World {
                 coin.collected_sound.play();
                 this.removeFromWorld(this.level.coins, index, 0);
                 this.character.availableCoins++;
-                console.log(this.character.availableCoins);
                 this.coinsStatusBar.setPercentage(this.character.availableCoins, 10);
             }
         });
