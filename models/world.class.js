@@ -12,6 +12,7 @@ class World {
     throwableObjects = [];
     background_sound = new Audio('../audio/background_music.mp3');
 
+
     constructor(canvas, keyboard) { // wird aus init() mitgegeben
         this.ctx = canvas.getContext('2d'); // in unser Objekt World wird canvas hineingegeben, später wollen wir dort Welt reinzeichnen
         // nicht direkt auf canvas malen möglich, sondern nur mit .getContext('2d')
@@ -22,6 +23,7 @@ class World {
         this.setWorld();
         this.run(); // war vorher checkCollision() --> jetzt allgemeiner run() --> nicht zu viele Intervalle laufen lassen
     }
+
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // clears the canvas for redrawing
@@ -49,6 +51,7 @@ class World {
         }); // in Methode wird draw() so häufig aufgerufen, wie es die Grafikkarte hergibt: 10-60 mal pro Sekunde
     }
 
+
     setWorld() {
         this.character.world = this; // character bekommt Variable world --> da ist alles aus world drin
         this.throwableObjects.world = this;
@@ -65,6 +68,7 @@ class World {
             this.addToMap(object);
         });
     }
+
 
     /**
      * adds an object to the map
@@ -84,6 +88,7 @@ class World {
         }
     }
 
+
     flipImage(mo) {
         this.ctx.save(); // aktuelle Einstellungen ctx speichern
         this.ctx.translate(mo.width, 0);
@@ -91,19 +96,23 @@ class World {
         mo.x = mo.x * -1;
     }
 
+
     flipImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();
     }
+
 
     run() {
         this.background_sound.volume = 0.2;
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
+            this.checkStartEndboss();
             this.background_sound.play();
         }, 100);
     }
+
 
     checkCollisions() {
         this.collisionEnemyCharacter();
@@ -111,6 +120,7 @@ class World {
         this.collisionCharacterBottle();
         this.collisionCharacterCoin();
     }
+
 
     collisionEnemyCharacter() {
         this.level.enemies.forEach((enemy, index) => {
@@ -125,6 +135,7 @@ class World {
         });
     }
 
+    
     collisionThrowableObjectEnemy() {
         this.throwableObjects.forEach(throwableObject => {
             this.level.enemies.forEach((enemy, index) => {
@@ -140,6 +151,7 @@ class World {
         });
     }
 
+
     collisionCharacterBottle() {
         this.level.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
@@ -151,6 +163,7 @@ class World {
         });
     }
 
+
     collisionCharacterCoin() {
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
@@ -161,6 +174,7 @@ class World {
             }
         });
     }
+
 
     checkThrowObjects() {
         if (this.keyboard.D) {
@@ -175,6 +189,20 @@ class World {
             }
         }
     }
+
+
+    checkStartEndboss() {
+        if (this.distanceCharacterEndboss() < 500) {
+            this.level.enemies[0].speed = 1;
+        }
+    }
+
+
+    distanceCharacterEndboss() {
+        let distance = this.level.enemies[0].x - this.character.x;
+        return distance;
+    }
+
 
     removeFromWorld(array, index, timeout) {
         setTimeout(() => {
