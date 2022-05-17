@@ -119,16 +119,17 @@ class World {
         this.collisionThrowableObjectEnemy();
         this.collisionCharacterBottle();
         this.collisionCharacterCoin();
+        this.collisionCharacterEndboss();
     }
 
 
     collisionEnemyCharacter() {
         this.level.enemies.forEach((enemy, index) => {
-            if (this.character.isTrampled(enemy)) {
+            if (this.character.isTrampling(enemy)) {
                 enemy.kill();
                 enemy.death_sound.play();
-                this.removeFromWorld(this.level.enemies, index, 2000);
-            } else if (!this.character.isTrampled(enemy) && this.character.isColliding(enemy) && enemy.energy > 0) {
+                this.removeFromWorld(this.level.enemies, index, 3000);
+            } else if (!this.character.isTrampling(enemy) && this.character.isColliding(enemy) && enemy.energy > 0) {
                 this.character.hit(5);
                 this.lifeStatusBar.setPercentage(this.character.energy, 100);
             }
@@ -144,7 +145,7 @@ class World {
                     throwableObject.breakBottle();
                     if (enemy.energy <= 0) {
                         enemy.death_sound.play();
-                        this.removeFromWorld(this.level.enemies, index, 2000);
+                        this.removeFromWorld(this.level.enemies, index, 3000);
                     }
                 }
             });
@@ -176,6 +177,15 @@ class World {
     }
 
 
+    collisionCharacterEndboss() {
+        if (this.character.isColliding(this.level.enemies[0])) {
+            this.level.enemies[0].attack = true;
+        } else {
+            this.level.enemies[0].attack = false;
+        }
+    }
+
+
     checkThrowObjects() {
         if (this.keyboard.D) {
             if (this.character.availableThrowObjects == 0) {
@@ -191,8 +201,9 @@ class World {
     }
 
 
+    // endboss should start when character neares him and if endboss isn't hurt or dead
     checkStartEndboss() {
-        if (this.distanceCharacterEndboss() < 500) {
+        if (this.distanceCharacterEndboss() < 400 && !this.level.enemies[0].isHurt() && !this.level.enemies[0].isDead()) {
             this.level.enemies[0].speed = 1;
         }
     }
