@@ -44,11 +44,13 @@ class World {
         this.addToMap(this.bottlesStatusBar);
         this.addToMap(this.coinsStatusBar);
 
+
         let self = this;
         requestAnimationFrame(function () { // ins requestAnimationFrame wird eine Funktion reingegeben, die wird ausgeführt, sobald alles drüber fertig gezeichnet wurde (asynchron)
             self.draw(); // Problem: this kennt er da drin nicht mehr: Variable namens self und this da zuweisen, dann geht es
             // draw() wird immer wieder aufgerufen
         }); // in Methode wird draw() so häufig aufgerufen, wie es die Grafikkarte hergibt: 10-60 mal pro Sekunde
+
     }
 
 
@@ -81,7 +83,7 @@ class World {
         }
 
         mo.draw(this.ctx);
-        mo.drawFrame(this.ctx);
+        // mo.drawFrame(this.ctx); // draw a visible frame around objects to see collisions
 
         if (mo.otherDirection) {
             this.flipImageBack(mo);
@@ -109,6 +111,7 @@ class World {
             this.checkCollisions();
             this.checkThrowObjects();
             this.checkStartEndboss();
+            this.checkGameOver();
             this.background_sound.play();
         }, 100);
     }
@@ -125,7 +128,7 @@ class World {
 
     collisionEnemyCharacter() {
         this.level.enemies.forEach((enemy, index) => {
-            if (this.character.isTrampling(enemy)) {
+            if (this.character.isTrampling(enemy) && enemy.height < 300) { // avoid to kill endboss by trampling
                 enemy.kill();
                 enemy.death_sound.play();
                 this.removeFromWorld(this.level.enemies, index, 3000);
@@ -180,6 +183,7 @@ class World {
     collisionCharacterEndboss() {
         if (this.character.isColliding(this.level.enemies[0])) {
             this.level.enemies[0].attack = true;
+            this.character.hit(30);
         } else {
             this.level.enemies[0].attack = false;
         }
@@ -219,6 +223,15 @@ class World {
         setTimeout(() => {
             array.splice(index, 1);
         }, timeout);
+    }
+
+    
+    checkGameOver() {
+        if (this.character.isDead()) {
+            document.getElementById('lost-screen').classList.remove('d-none');
+        } else if (this.level.enemies[0].isDead()) {
+            document.getElementById('game-over-screen').classList.remove('d-none');
+        }
     }
 
 }

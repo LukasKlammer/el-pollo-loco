@@ -12,7 +12,6 @@ function init() {
     console.log('My Character is ', world['character']);
 }
 
-
 window.addEventListener('keydown', (ev) => { // arrow Tasten werden nur mit keydown erkannt
     switch (ev.keyCode) {
         case 13:
