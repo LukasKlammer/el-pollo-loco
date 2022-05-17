@@ -118,7 +118,7 @@ class World {
                 this.background_sound.play();
             } else if (this.isGameOver) {
                 this.background_sound.pause();
-                //todo: stop keyboard-events?!
+                this.stopKeyboardEvents();
             }
         }, 100);
 
@@ -152,7 +152,7 @@ class World {
         this.throwableObjects.forEach(throwableObject => {
             this.level.enemies.forEach((enemy, index) => {
                 if (enemy.isColliding(throwableObject) && throwableObject.energy > 0) {
-                    enemy.hit(35);
+                    enemy.hit(20);
                     throwableObject.breakBottle();
                     if (enemy.energy <= 0) {
                         enemy.death_sound.play();
@@ -252,6 +252,35 @@ class World {
         this.level.enemies.forEach(enemy => {
             enemy.speed = 0;
         });
+    }
+
+
+    stopKeyboardEvents() {
+        window.removeEventListener('keydown', (ev) => { // arrow Tasten werden nur mit keydown erkannt
+            switch (ev.keyCode) {
+                case 13:
+                    init();
+                    break;
+                case 32:
+                    keyboard.SPACE = true;
+                    break;
+                case 37:
+                    keyboard.LEFT = true;
+                    break;
+                case 38:
+                    keyboard.UP = true;
+                    break;
+                case 39:
+                    keyboard.RIGHT = true;
+                    break;
+                case 40:
+                    keyboard.DOWN = true;
+                    break;        
+                case 68:
+                    keyboard.D = true;
+                    break;
+            }
+        })
     }
 
 }

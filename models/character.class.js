@@ -100,7 +100,7 @@ class Character extends MovableObject {
 
 
     timePassedAfterThrow() {
-        return this.timerOfAction(this.lastThrow) > 1; // returns true if timePassed > 0.5 seconds
+        return this.timerOfAction(this.lastThrow) > 1.25; // returns true if timePassed > 0.5 seconds
     }
 
 }

@@ -7,11 +7,13 @@ class DrawableObject {
     imageCache = {};
     currentImage = 0;
     
+
     // loadImage('img/test.png');
     loadImage(path) {
         this.img = new Image(); // this.img = document.getElementById('image') <img id="image" src...>
         this.img.src = path;
     }
+
 
     /**
      * loads all images from the given array in the variable imageCache, which is a JSON
@@ -27,12 +29,14 @@ class DrawableObject {
         });
     }
 
+ 
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height); // draw() Methode kann den context ctx nutzen und kann auf diesen verschiedene Methoden aufrufen, um Welt zu malen
         // this.character.img ist das Bild
         // this braucht es, weil wir von dieser Welt auf context zugreifen wollen, alle Variablen aus dieser Klasse mit this öffnen
     }
     
+
     drawFrame(ctx) {
         if (this instanceof Character || this instanceof Chicken) {
             ctx.beginPath();
