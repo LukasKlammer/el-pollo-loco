@@ -6,11 +6,13 @@ class World {
     ctx; // Variable context
     keyboard;
     camera_x = 0;
+    isGameOver = false;
     lifeStatusBar = new StatusBar(0, 'life', 100);
     bottlesStatusBar = new StatusBar(40, 'bottles', 0);
     coinsStatusBar = new StatusBar(80, 'coins', 0);
     throwableObjects = [];
     background_sound = new Audio('../audio/background_music.mp3');
+
 
 
     constructor(canvas, keyboard) { // wird aus init() mitgegeben
@@ -19,8 +21,8 @@ class World {
 
         this.canvas = canvas; // dem canvas von oben (HIER) wird das übergebene canvas zugewiesen
         this.keyboard = keyboard;
-        this.draw(); // draw Methode haben wir bereits unten
         this.setWorld();
+        this.draw(); // draw Methode haben wir bereits unten
         this.run(); // war vorher checkCollision() --> jetzt allgemeiner run() --> nicht zu viele Intervalle laufen lassen
     }
 
@@ -45,11 +47,13 @@ class World {
         this.addToMap(this.coinsStatusBar);
 
 
-        let self = this;
-        requestAnimationFrame(function () { // ins requestAnimationFrame wird eine Funktion reingegeben, die wird ausgeführt, sobald alles drüber fertig gezeichnet wurde (asynchron)
-            self.draw(); // Problem: this kennt er da drin nicht mehr: Variable namens self und this da zuweisen, dann geht es
-            // draw() wird immer wieder aufgerufen
-        }); // in Methode wird draw() so häufig aufgerufen, wie es die Grafikkarte hergibt: 10-60 mal pro Sekunde
+        if (!this.isGameOver) {
+            let self = this;
+            requestAnimationFrame(function () { // ins requestAnimationFrame wird eine Funktion reingegeben, die wird ausgeführt, sobald alles drüber fertig gezeichnet wurde (asynchron)
+                self.draw(); // Problem: this kennt er da drin nicht mehr: Variable namens self und this da zuweisen, dann geht es
+                // draw() wird immer wieder aufgerufen
+            }); // in Methode wird draw() so häufig aufgerufen, wie es die Grafikkarte hergibt: 10-60 mal pro Sekunde
+        }
 
     }
 
@@ -107,13 +111,20 @@ class World {
 
     run() {
         this.background_sound.volume = 0.2;
+
         setInterval(() => {
-            this.checkCollisions();
-            this.checkThrowObjects();
-            this.checkStartEndboss();
-            this.checkGameOver();
-            this.background_sound.play();
+            if (!this.isGameOver) {
+                this.checkCollisions();
+                this.checkThrowObjects();
+                this.checkStartEndboss();
+                this.checkGameOver();
+                this.background_sound.play();
+            } else if (this.isGameOver) {
+                this.background_sound.pause();
+                //todo: stop keyboard-events?!
+            }
         }, 100);
+
     }
 
 
@@ -139,7 +150,7 @@ class World {
         });
     }
 
-    
+
     collisionThrowableObjectEnemy() {
         this.throwableObjects.forEach(throwableObject => {
             this.level.enemies.forEach((enemy, index) => {
@@ -225,13 +236,16 @@ class World {
         }, timeout);
     }
 
-    
+
     checkGameOver() {
         if (this.character.isDead()) {
             document.getElementById('lost-screen').classList.remove('d-none');
+            this.isGameOver = true;
+            this.character.death_sound.play();
         } else if (this.level.enemies[0].isDead()) {
             document.getElementById('game-over-screen').classList.remove('d-none');
-        }
+            this.isGameOver = true;
+        } 
     }
 
 }
