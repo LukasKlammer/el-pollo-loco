@@ -1,6 +1,6 @@
 class MovableObject extends DrawableObject {
     // Variablen nur für bewegbare Objekte
-    speed = 0.05;
+    speed = 0.03;
     speedY = 0;
     acceleration = 1;
     energy = 100;

@@ -46,14 +46,11 @@ class World {
         this.addToMap(this.bottlesStatusBar);
         this.addToMap(this.coinsStatusBar);
 
-
-        if (!this.isGameOver) {
-            let self = this;
-            requestAnimationFrame(function () { // ins requestAnimationFrame wird eine Funktion reingegeben, die wird ausgeführt, sobald alles drüber fertig gezeichnet wurde (asynchron)
-                self.draw(); // Problem: this kennt er da drin nicht mehr: Variable namens self und this da zuweisen, dann geht es
-                // draw() wird immer wieder aufgerufen
-            }); // in Methode wird draw() so häufig aufgerufen, wie es die Grafikkarte hergibt: 10-60 mal pro Sekunde
-        }
+        let self = this;
+        requestAnimationFrame(function () { // ins requestAnimationFrame wird eine Funktion reingegeben, die wird ausgeführt, sobald alles drüber fertig gezeichnet wurde (asynchron)
+            self.draw(); // Problem: this kennt er da drin nicht mehr: Variable namens self und this da zuweisen, dann geht es
+            // draw() wird immer wieder aufgerufen
+        }); // in Methode wird draw() so häufig aufgerufen, wie es die Grafikkarte hergibt: 10-60 mal pro Sekunde
 
     }
 
@@ -139,7 +136,7 @@ class World {
 
     collisionEnemyCharacter() {
         this.level.enemies.forEach((enemy, index) => {
-            if (this.character.isTrampling(enemy) && enemy.height < 300) { // avoid to kill endboss by trampling
+            if (this.character.isTrampling(enemy) && enemy.height < 300 && enemy.energy > 0) { // avoid to kill endboss by trampling
                 enemy.kill();
                 enemy.death_sound.play();
                 this.removeFromWorld(this.level.enemies, index, 3000);
@@ -218,8 +215,8 @@ class World {
 
     // endboss should start when character neares him and if endboss isn't hurt or dead
     checkStartEndboss() {
-        if (this.distanceCharacterEndboss() < 400 && !this.level.enemies[0].isHurt() && !this.level.enemies[0].isDead()) {
-            this.level.enemies[0].speed = 1;
+        if (this.distanceCharacterEndboss() < 450 && !this.level.enemies[0].isHurt() && !this.level.enemies[0].isDead()) {
+            this.level.enemies[0].speed = 2;
         }
     }
 
@@ -241,11 +238,20 @@ class World {
         if (this.character.isDead()) {
             document.getElementById('lost-screen').classList.remove('d-none');
             this.isGameOver = true;
+            this.stopAllEnemies();
             this.character.death_sound.play();
         } else if (this.level.enemies[0].isDead()) {
             document.getElementById('game-over-screen').classList.remove('d-none');
             this.isGameOver = true;
-        } 
+            this.stopAllEnemies();
+        }
+    }
+
+
+    stopAllEnemies() {
+        this.level.enemies.forEach(enemy => {
+            enemy.speed = 0;
+        });
     }
 
 }
