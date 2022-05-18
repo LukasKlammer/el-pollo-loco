@@ -254,33 +254,4 @@ class World {
         });
     }
 
-
-    stopKeyboardEvents() {
-        window.removeEventListener('keydown', (ev) => { // arrow Tasten werden nur mit keydown erkannt
-            switch (ev.keyCode) {
-                case 13:
-                    init();
-                    break;
-                case 32:
-                    keyboard.SPACE = true;
-                    break;
-                case 37:
-                    keyboard.LEFT = true;
-                    break;
-                case 38:
-                    keyboard.UP = true;
-                    break;
-                case 39:
-                    keyboard.RIGHT = true;
-                    break;
-                case 40:
-                    keyboard.DOWN = true;
-                    break;        
-                case 68:
-                    keyboard.D = true;
-                    break;
-            }
-        })
-    }
-
 }
