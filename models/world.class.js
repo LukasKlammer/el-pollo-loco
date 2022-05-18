@@ -118,7 +118,6 @@ class World {
                 this.background_sound.play();
             } else if (this.isGameOver) {
                 this.background_sound.pause();
-                this.stopKeyboardEvents();
             }
         }, 100);
 
