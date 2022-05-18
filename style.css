@@ -1,10 +1,11 @@
+
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: rgb(233, 227, 196);
+    background: rgb(194, 192, 181);
 }
 
 .window {
@@ -36,13 +37,38 @@ canvas {
 }
 
 .touchscreen-button-container {
+    display: none;
     position: absolute;
     bottom: 0;
     left: 0;
     height: 10%;
     width: 100%;
-    display: flex;
     justify-content: space-between;
+}
+
+.touchscreen-button-container img {
+    height: 100%;
+}
+
+.instruction-manual {
+    width: 700px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    font-size: px;
+    gap: 20px;
+    background-color: #F5F6F7;
+}
+
+.instruction-manual div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 70px;
+}
+
+.instruction-manual img {
+    height: 50px;
 }
 
 .d-none {
@@ -53,6 +79,19 @@ canvas {
 @media only screen and (max-width: 720px) {
     canvas {
         width: 100%;
+    }
+
+    .start-screen, .end-screen {
+        width: 100%;
+        object-fit: contain;
+    }
+
+    .instruction-manual {
+        display: none;
+    }
+
+    .touchscreen-button-container {
+        display: flex;
     }
 }
 
@@ -66,5 +105,8 @@ canvas {
         display: none;
     }
 
+    .instruction-manual {
+        display: none;
+    }
     
 }
