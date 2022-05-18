@@ -4,30 +4,30 @@ class StatusBar extends DrawableObject {
     typeOfStatusBar;
 
     IMAGES_LIFE_BARS = [
-        '../img/7.Marcadores/Barra/Marcador vida/azul/0_.png', // Pfad 0
-        '../img/7.Marcadores/Barra/Marcador vida/azul/20_.png',
-        '../img/7.Marcadores/Barra/Marcador vida/azul/40_.png',
-        '../img/7.Marcadores/Barra/Marcador vida/azul/60_.png',
-        '../img/7.Marcadores/Barra/Marcador vida/azul/80_.png',
-        '../img/7.Marcadores/Barra/Marcador vida/azul/100_.png' // Pfad 5
+        './img/7.Marcadores/Barra/Marcador vida/azul/0_.png', // Pfad 0
+        './img/7.Marcadores/Barra/Marcador vida/azul/20_.png',
+        './img/7.Marcadores/Barra/Marcador vida/azul/40_.png',
+        './img/7.Marcadores/Barra/Marcador vida/azul/60_.png',
+        './img/7.Marcadores/Barra/Marcador vida/azul/80_.png',
+        './img/7.Marcadores/Barra/Marcador vida/azul/100_.png' // Pfad 5
     ]
 
     IMAGES_BOTTLES_BARS = [
-        '../img/7.Marcadores/Barra/Marcador_botella/azul/0_.png',
-        '../img/7.Marcadores/Barra/Marcador_botella/azul/20_.png',
-        '../img/7.Marcadores/Barra/Marcador_botella/azul/40_.png',
-        '../img/7.Marcadores/Barra/Marcador_botella/azul/60_.png',
-        '../img/7.Marcadores/Barra/Marcador_botella/azul/80_.png',
-        '../img/7.Marcadores/Barra/Marcador_botella/azul/100_.png'
+        './img/7.Marcadores/Barra/Marcador_botella/azul/0_.png',
+        './img/7.Marcadores/Barra/Marcador_botella/azul/20_.png',
+        './img/7.Marcadores/Barra/Marcador_botella/azul/40_.png',
+        './img/7.Marcadores/Barra/Marcador_botella/azul/60_.png',
+        './img/7.Marcadores/Barra/Marcador_botella/azul/80_.png',
+        './img/7.Marcadores/Barra/Marcador_botella/azul/100_.png'
     ]
 
     IMAGES_COINS_BARS = [
-        '../img/7.Marcadores/Barra/Marcador moneda/azul/0_.png',
-        '../img/7.Marcadores/Barra/Marcador moneda/azul/20_.png',
-        '../img/7.Marcadores/Barra/Marcador moneda/azul/40_.png',
-        '../img/7.Marcadores/Barra/Marcador moneda/azul/60_.png',
-        '../img/7.Marcadores/Barra/Marcador moneda/azul/80_.png',
-        '../img/7.Marcadores/Barra/Marcador moneda/azul/100_.png' 
+        './img/7.Marcadores/Barra/Marcador moneda/azul/0_.png',
+        './img/7.Marcadores/Barra/Marcador moneda/azul/20_.png',
+        './img/7.Marcadores/Barra/Marcador moneda/azul/40_.png',
+        './img/7.Marcadores/Barra/Marcador moneda/azul/60_.png',
+        './img/7.Marcadores/Barra/Marcador moneda/azul/80_.png',
+        './img/7.Marcadores/Barra/Marcador moneda/azul/100_.png' 
     ]
 
     /**

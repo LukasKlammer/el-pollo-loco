@@ -11,7 +11,7 @@ class World {
     bottlesStatusBar = new StatusBar(40, 'bottles', 0);
     coinsStatusBar = new StatusBar(80, 'coins', 0);
     throwableObjects = [];
-    background_sound = new Audio('../audio/background_music.mp3');
+    background_sound = new Audio('./audio/background_music.mp3');
 
 
 
