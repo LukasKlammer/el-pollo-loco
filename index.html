@@ -28,12 +28,12 @@
     <script src="./js/game.js"></script>
 </head>
 
-<body>
+<body onload="init()">
 
     <h1 class="title">El pollo loco</h1>
 
     <div class="window">
-        <img onclick="init()" class="start-screen" id="start-screen"
+        <img onclick="startGame()" class="start-screen" id="start-screen"
             src="./img/9.Intro _ Outro Image/Start Screen/Opción 1.png" alt="intro">
         <canvas id="canvas" class="d-none" width="720" height="480"></canvas>
         <div id="touchscreen-button-container" class="touchscreen-button-container d-none">

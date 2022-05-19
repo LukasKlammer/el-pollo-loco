@@ -4,17 +4,21 @@ let keyboard = new Keyboard();
 
 
 function init() {
-    if (world == 0) {
-        document.getElementById('start-screen').classList.add('d-none');
-        canvas = document.getElementById('canvas'); // der Variable canvas weisen wir das canvas aus dem index HTML zu
-        canvas.classList.remove('d-none');
-        document.getElementById('touchscreen-button-container').classList.remove('d-none');
-        initLevel();
-        world = new World(canvas, keyboard); // Variable world, legen neues Objekt namens world an, der geben wir canvas als Variable mit; wir können bei Erstellung diverse Variablen an Objekte mitgeben
-        mobileDevice();
-    }
-
+    canvas = document.getElementById('canvas'); // der Variable canvas weisen wir das canvas aus dem index HTML zu
+    initLevel();
+    world = new World(canvas, keyboard); // Variable world, legen neues Objekt namens world an, der geben wir canvas als Variable mit; wir können bei Erstellung diverse Variablen an Objekte mitgeben
+    mobileDevice();
 }
+
+
+function startGame() {
+    document.getElementById('start-screen').classList.add('d-none');
+    document.getElementById('touchscreen-button-container').classList.remove('d-none');
+    document.getElementById('canvas').classList.remove('d-none');
+    console.log(world);
+    world.startWorld();
+}
+
 
 window.addEventListener('keydown', (ev) => { // arrow Tasten werden nur mit keydown erkannt
     switch (ev.keyCode) {
@@ -49,6 +53,7 @@ window.addEventListener('keydown', (ev) => { // arrow Tasten werden nur mit keyd
     }
 })
 
+
 window.addEventListener('keyup', (ev) => { // wenn Taste losgelassen wir alle Variablen keyboard zurücksetzen (stoppt Bewegungen)
     keyboard.SPACE = false;
     keyboard.LEFT = false;
@@ -56,6 +61,7 @@ window.addEventListener('keyup', (ev) => { // wenn Taste losgelassen wir alle Va
     keyboard.RIGHT = false;
     keyboard.D = false;
 });
+
 
 function mobileDevice() {
     document.getElementById('move-left').addEventListener('touchstart', (e) => {
@@ -98,6 +104,7 @@ function mobileDevice() {
         e.preventDefault();
     });
 }
+
 
 function reloadPage() {
     window.location.reload();

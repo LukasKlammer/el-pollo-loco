@@ -14,7 +14,6 @@ class World {
     background_sound = new Audio('./audio/background_music.mp3');
 
 
-
     constructor(canvas, keyboard) { // wird aus init() mitgegeben
         this.ctx = canvas.getContext('2d'); // in unser Objekt World wird canvas hineingegeben, später wollen wir dort Welt reinzeichnen
         // nicht direkt auf canvas malen möglich, sondern nur mit .getContext('2d')
@@ -22,6 +21,13 @@ class World {
         this.canvas = canvas; // dem canvas von oben (HIER) wird das übergebene canvas zugewiesen
         this.keyboard = keyboard;
         this.setWorld();
+    }
+
+
+    startWorld() {
+        console.log('startWorld() richtig ausgeführt in world.class');
+        this.character.start();
+        this.level.startLevel();
         this.draw(); // draw Methode haben wir bereits unten
         this.run(); // war vorher checkCollision() --> jetzt allgemeiner run() --> nicht zu viele Intervalle laufen lassen
     }

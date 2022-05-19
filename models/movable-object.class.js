@@ -7,6 +7,7 @@ class MovableObject extends DrawableObject {
     lastHit = 0;
     otherDirection = false;
 
+
     applyGravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
@@ -16,6 +17,7 @@ class MovableObject extends DrawableObject {
         }, 1000 / 25);
     }
 
+
     isAboveGround() {
         if (this instanceof ThrowableObject) { // ThrowableObject should always fall
             return true;
@@ -24,17 +26,21 @@ class MovableObject extends DrawableObject {
         }
     }
 
+
     moveRight() {
         this.x += this.speed;
     }
+
 
     moveLeft() {
         this.x -= this.speed;
     }
 
+
     jump() {
         this.speedY = 16;
     }
+
 
     playAnimation(images) {
         let i = this.currentImage % images.length; // let i = 0 % 6 --> 0, Rest 6;    let i = 1 % 6 --> 0, Rest 1;     let i = 5 % 6 --> 0, Rest 5;     let i = 6 % 6 --> 1, Rest 0;     let i = 7 % 6 --> 1, Rest 1;
@@ -44,6 +50,7 @@ class MovableObject extends DrawableObject {
         this.currentImage++;
     }
 
+
     // character.isColliding(chicken); --> kollidiert character mit chicken
     isColliding(mo) {
         return this.x + this.width > mo.x &&
@@ -51,6 +58,7 @@ class MovableObject extends DrawableObject {
             this.x < mo.x &&
             this.y < mo.y + mo.height;
     }
+
 
     isTrampling(mo) {
         return this.x + this.width > mo.x &&
@@ -60,6 +68,7 @@ class MovableObject extends DrawableObject {
         this.y < 131;
     }
 
+
     hit(damage) {
         this.energy -= damage;
         if (this.energy < 0) {
@@ -68,6 +77,7 @@ class MovableObject extends DrawableObject {
             this.lastHit = new Date().getTime(); // Zeit in Zahlenform speichern
         }
     }
+
 
     /**
      * calculates the passed time from an event and gives it in seconds
@@ -81,6 +91,7 @@ class MovableObject extends DrawableObject {
         return timePassed; // time while return true
     }
 
+
     isHurt() {
         let timePassed = this.timerOfAction(this.lastHit);
         return timePassed < 1;
@@ -91,6 +102,7 @@ class MovableObject extends DrawableObject {
         return this.energy == 0;
     }
 
+    
     kill() {
         this.energy = 0;
         this.speed = 0;

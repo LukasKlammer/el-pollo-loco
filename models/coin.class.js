@@ -9,6 +9,5 @@ class Coin extends MovableObject {
 
         this.x = Math.random() * 2200; // Zahl zwischen 0 und 2500
         this.y = 30 + Math.random() * 340;
-        
     }
 }

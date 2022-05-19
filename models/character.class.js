@@ -59,11 +59,14 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
+    }
 
+
+    start() {
         this.animate();
-
         this.applyGravity();
     }
+
 
     animate() {
         // move animation
