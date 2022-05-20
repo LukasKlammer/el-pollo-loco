@@ -3,7 +3,7 @@ class Character extends MovableObject {
     height = 300;
     width = 120;
     y = 40;
-    speed = 10;
+    speed = 5;
     availableThrowObjects = 0;
     availableCoins = 0;
     lastThrow = 0;
@@ -87,7 +87,7 @@ class Character extends MovableObject {
                 }
                 this.world.camera_x = -this.x + 100;
             }
-        }, 1000 / 60);
+        }, 1000 / 100);
 
         // walk, hurt, jump, dead animation
         setInterval(() => {
@@ -100,7 +100,7 @@ class Character extends MovableObject {
             } else if (!this.world.isGameOver && (this.world.keyboard.RIGHT || this.world.keyboard.LEFT)) {
                 this.playAnimation(this.IMAGES_WALKING);
             }
-        }, 50);
+        }, 120);
     }
 
 

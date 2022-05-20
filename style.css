@@ -18,6 +18,7 @@ canvas {
 }
 
 .start-screen {
+    display: block;
     width: 720px;
     height: 480px;
     transition: all 125 ease-in-out;
@@ -29,6 +30,7 @@ canvas {
 }
 
 .end-screen {
+    display: block;
     position: absolute;
     top: 0;
     left: 0;
@@ -37,17 +39,24 @@ canvas {
 }
 
 .touchscreen-button-container {
-    display: none;
+    display: flex;
     position: absolute;
+    z-index: 2;
     bottom: 0;
     left: 0;
-    height: 10%;
+    height: 11%;
     width: 100%;
     justify-content: space-between;
 }
 
 .touchscreen-button-container img {
-    height: 100%;
+    border: 1px solid grey;
+    border-radius: 4px;
+}
+
+.jump-throw-buttons, .left-right-buttons {
+    display: flex;
+    gap: 24px;
 }
 
 .instruction-manual {
@@ -55,6 +64,7 @@ canvas {
     padding: 10px;
     display: flex;
     align-items: center;
+    text-align: center;
     font-size: px;
     gap: 20px;
     background-color: #F5F6F7;
@@ -69,6 +79,12 @@ canvas {
 
 .instruction-manual img {
     height: 50px;
+    border: 1px solid grey;
+    border-radius: 4px;
+}
+
+.instruction-manual span {
+    padding: 4px;
 }
 
 .d-none {
@@ -77,21 +93,23 @@ canvas {
 
 /* Smartphones --------------------*/
 @media only screen and (max-width: 720px) {
+    .window {
+        width: 100%;
+    }
+
     canvas {
         width: 100%;
     }
 
-    .start-screen, .end-screen {
+    .start-screen {
+        top: 0;
+        left: 0;
         width: 100%;
-        object-fit: contain;
+        height: 100%;
     }
 
     .instruction-manual {
         display: none;
-    }
-
-    .touchscreen-button-container {
-        display: flex;
     }
 }
 
@@ -107,6 +125,13 @@ canvas {
 
     .instruction-manual {
         display: none;
+    }
+
+    .start-screen {
+        top: 0;
+        left: 0;
+        width: 100%;
+        max-height: 100vh;
     }
     
 }

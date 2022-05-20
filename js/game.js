@@ -13,9 +13,9 @@ function init() {
 
 function startGame() {
     document.getElementById('start-screen').classList.add('d-none');
+    document.getElementById('instruction-manual').classList.add('d-none');
     document.getElementById('touchscreen-button-container').classList.remove('d-none');
     document.getElementById('canvas').classList.remove('d-none');
-    console.log(world);
     world.startWorld();
 }
 
@@ -55,12 +55,17 @@ window.addEventListener('keydown', (ev) => { // arrow Tasten werden nur mit keyd
 
 
 window.addEventListener('keyup', (ev) => { // wenn Taste losgelassen wir alle Variablen keyboard zurücksetzen (stoppt Bewegungen)
+    resetKeyboard();
+});
+
+
+function resetKeyboard() {
     keyboard.SPACE = false;
     keyboard.LEFT = false;
     keyboard.UP = false;
     keyboard.RIGHT = false;
     keyboard.D = false;
-});
+}
 
 
 function mobileDevice() {
@@ -72,6 +77,15 @@ function mobileDevice() {
         e.preventDefault();
         keyboard.LEFT = false;
     });
+    document.getElementById('move-left').addEventListener('click', (e) => {
+        e.preventDefault();
+        keyboard.LEFT = true;
+    });
+    document.getElementById('move-left').addEventListener('onmouseout', (e) => {
+        e.preventDefault();
+        keyboard.LEFT = false;
+    });
+
     document.getElementById('move-right').addEventListener('touchstart', (e) => {
         e.preventDefault();
         keyboard.RIGHT = true;
@@ -80,6 +94,15 @@ function mobileDevice() {
         e.preventDefault();
         keyboard.RIGHT = false;
     });
+    document.getElementById('move-right').addEventListener('click', (e) => {
+        e.preventDefault();
+        keyboard.RIGHT = true;
+    });
+    document.getElementById('move-right').addEventListener('onmouseout', (e) => {
+        e.preventDefault();
+        keyboard.RIGHT = false;
+    });
+
     document.getElementById('throw').addEventListener('touchstart', (e) => {
         e.preventDefault();
         keyboard.D = true;
@@ -88,6 +111,15 @@ function mobileDevice() {
         e.preventDefault();
         keyboard.D = false;
     });
+    document.getElementById('throw').addEventListener('click', (e) => {
+        e.preventDefault();
+        keyboard.D = true;
+    });
+    document.getElementById('throw').addEventListener('onmouseout', (e) => {
+        e.preventDefault();
+        keyboard.D = false;
+    });
+
     document.getElementById('jump').addEventListener('touchstart', (e) => {
         e.preventDefault();
         keyboard.SPACE = true;
@@ -96,11 +128,27 @@ function mobileDevice() {
         e.preventDefault();
         keyboard.SPACE = false;
     });
+    document.getElementById('jump').addEventListener('click', (e) => {
+        e.preventDefault();
+        keyboard.SPACE = true;
+    });
+    document.getElementById('jump').addEventListener('onmouseout', (e) => {
+        e.preventDefault();
+        keyboard.SPACE = false;
+    });
+
     document.getElementById('restart').addEventListener('touchstart', (e) => {
         e.preventDefault();
         reloadPage();
     });
     document.getElementById('restart').addEventListener('touchend', (e) => {
+        e.preventDefault();
+    });
+    document.getElementById('restart').addEventListener('click', (e) => {
+        e.preventDefault();
+        reloadPage();
+    });
+    document.getElementById('restart').addEventListener('onmouseout', (e) => {
         e.preventDefault();
     });
 }

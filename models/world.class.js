@@ -25,7 +25,6 @@ class World {
 
 
     startWorld() {
-        console.log('startWorld() richtig ausgeführt in world.class');
         this.character.start();
         this.level.startLevel();
         this.draw(); // draw Methode haben wir bereits unten
@@ -57,7 +56,6 @@ class World {
             self.draw(); // Problem: this kennt er da drin nicht mehr: Variable namens self und this da zuweisen, dann geht es
             // draw() wird immer wieder aufgerufen
         }); // in Methode wird draw() so häufig aufgerufen, wie es die Grafikkarte hergibt: 10-60 mal pro Sekunde
-
     }
 
 
@@ -243,6 +241,7 @@ class World {
         if (this.character.isDead()) {
             document.getElementById('lost-screen').classList.remove('d-none');
             this.isGameOver = true;
+            this.lifeStatusBar.setPercentage(this.character.energy, 100);
             this.stopAllEnemies();
             this.character.death_sound.play();
         } else if (this.level.enemies[0].isDead()) {
