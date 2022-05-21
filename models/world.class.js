@@ -38,9 +38,7 @@ class World {
         // ----- space for moved objects ----- //
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
-        if (this.character.showImage) { // showImage will be set false, when character dies
-            this.addToMap(this.character);
-        }
+        this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.enemies);
@@ -89,8 +87,9 @@ class World {
             this.flipImage(mo);
         }
 
-        mo.draw(this.ctx);
-        // mo.drawFrame(this.ctx); // draw a visible frame around objects to see collisions
+        if (mo.showImage) {         // showImage will be set false, when element dies
+            mo.draw(this.ctx);
+        }
 
         if (mo.otherDirection) {
             this.flipImageBack(mo);
@@ -144,7 +143,9 @@ class World {
             if (this.character.isTrampling(enemy) && enemy.height < 300 && enemy.energy > 0) { // avoid to kill endboss by trampling
                 enemy.kill();
                 enemy.death_sound.play();
-                this.removeFromWorld(this.level.enemies, index, 3000);
+                setTimeout(() => {
+                    enemy.showImage = false;
+                }, 3000);
             } else if (!this.character.isTrampling(enemy) && this.character.isColliding(enemy) && enemy.energy > 0) {
                 this.character.hit(5);
                 this.lifeStatusBar.setPercentage(this.character.energy, 100);
