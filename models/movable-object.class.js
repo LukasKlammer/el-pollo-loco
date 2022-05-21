@@ -53,12 +53,19 @@ class MovableObject extends DrawableObject {
 
     // character.isColliding(chicken); --> kollidiert character mit chicken
     isColliding(mo) {
-        return this.x + this.width > mo.x &&
+        if (this instanceof Character && mo instanceof Coin) { // character should collect coins only when the coin is reached
+            return this.x + this.width > mo.x + 40 &&
+            this.y + this.height > mo.y + 40 &&
+            this.x < mo.x + 40 &&
+            this.y + 100 < mo.y + mo.height - 40;
+        } else {
+            return this.x + this.width > mo.x &&
             this.y + this.height > mo.y &&
             this.x < mo.x &&
             this.y < mo.y + mo.height;
+        }
     }
-
+    
 
     isTrampling(mo) {
         return this.x + this.width > mo.x &&

@@ -34,7 +34,8 @@ class DrawableObject {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height); // draw() Methode kann den context ctx nutzen und kann auf diesen verschiedene Methoden aufrufen, um Welt zu malen
         // this.character.img ist das Bild
         // this braucht es, weil wir von dieser Welt auf context zugreifen wollen, alle Variablen aus dieser Klasse mit this öffnen
-        this.drawFrame(ctx);
+
+        //this.drawFrame(ctx); // drawFrame will be needed only to debug or to learn how collisions work
     }
     
 
@@ -43,8 +44,24 @@ class DrawableObject {
             ctx.beginPath();
             ctx.lineWidth = '5';
             ctx.strokeStyle = 'blue';
-            ctx.rect(this.x, this.y, this.width, this.height);
+            this.drawRectangle(ctx);
             ctx.stroke();
+        }
+    }
+
+
+    /**
+     * draws the rectangle-border of image: some images are bigger than the content in it, so there is a need to correct the measures
+     * 
+     * @param {*} ctx rendercontext
+     */
+    drawRectangle(ctx) {
+        if (this instanceof Character) {
+            ctx.rect(this.x, this.y + 100, this.width, this.height - 100);
+        } else if (this instanceof Coin) {
+            ctx.rect(this.x + 40, this.y + 40, this.width - 80, this.height - 80);
+        } else {
+            ctx.rect(this.x, this.y, this.width, this.height);
         }
     }
 
