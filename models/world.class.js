@@ -38,7 +38,9 @@ class World {
         // ----- space for moved objects ----- //
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
-        this.addToMap(this.character);
+        if (this.character.showImage) { // showImage will be set false, when character dies
+            this.addToMap(this.character);
+        }
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.enemies);
@@ -244,6 +246,9 @@ class World {
             this.lifeStatusBar.setPercentage(this.character.energy, 100);
             this.stopAllEnemies();
             this.character.death_sound.play();
+            setTimeout(() => {
+                this.character.showImage = false;
+            }, 3000);
         } else if (this.level.enemies[0].isDead()) {
             document.getElementById('game-over-screen').classList.remove('d-none');
             this.isGameOver = true;

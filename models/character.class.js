@@ -8,6 +8,7 @@ class Character extends MovableObject {
     availableCoins = 0;
     lastThrow = 0;
     world;
+    showImage = true;
 
     walking_sound = new Audio('./audio/running.mp3');
     jumping_sound = new Audio('./audio/character_jumping.mp3');
