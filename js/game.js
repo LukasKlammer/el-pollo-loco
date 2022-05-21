@@ -59,6 +59,11 @@ window.addEventListener('keyup', (ev) => { // wenn Taste losgelassen wir alle Va
 });
 
 
+function setKeyboard(){
+
+}
+
+
 function resetKeyboard() {
     keyboard.SPACE = false;
     keyboard.LEFT = false;
@@ -77,11 +82,11 @@ function mobileDevice() {
         e.preventDefault();
         keyboard.LEFT = false;
     });
-    document.getElementById('move-left').addEventListener('click', (e) => {
+    document.getElementById('move-left').addEventListener('mousedown', (e) => {
         e.preventDefault();
         keyboard.LEFT = true;
     });
-    document.getElementById('move-left').addEventListener('onmouseout', (e) => {
+    document.getElementById('move-left').addEventListener('mouseup', (e) => {
         e.preventDefault();
         keyboard.LEFT = false;
     });
@@ -94,11 +99,11 @@ function mobileDevice() {
         e.preventDefault();
         keyboard.RIGHT = false;
     });
-    document.getElementById('move-right').addEventListener('click', (e) => {
+    document.getElementById('move-right').addEventListener('mousedown', (e) => {
         e.preventDefault();
         keyboard.RIGHT = true;
     });
-    document.getElementById('move-right').addEventListener('onmouseout', (e) => {
+    document.getElementById('move-right').addEventListener('mouseup', (e) => {
         e.preventDefault();
         keyboard.RIGHT = false;
     });
@@ -111,11 +116,11 @@ function mobileDevice() {
         e.preventDefault();
         keyboard.D = false;
     });
-    document.getElementById('throw').addEventListener('click', (e) => {
+    document.getElementById('throw').addEventListener('mousedown', (e) => {
         e.preventDefault();
         keyboard.D = true;
     });
-    document.getElementById('throw').addEventListener('onmouseout', (e) => {
+    document.getElementById('throw').addEventListener('mouseup', (e) => {
         e.preventDefault();
         keyboard.D = false;
     });
@@ -128,11 +133,11 @@ function mobileDevice() {
         e.preventDefault();
         keyboard.SPACE = false;
     });
-    document.getElementById('jump').addEventListener('click', (e) => {
+    document.getElementById('jump').addEventListener('mousedown', (e) => {
         e.preventDefault();
         keyboard.SPACE = true;
     });
-    document.getElementById('jump').addEventListener('onmouseout', (e) => {
+    document.getElementById('jump').addEventListener('mouseup', (e) => {
         e.preventDefault();
         keyboard.SPACE = false;
     });
@@ -144,11 +149,11 @@ function mobileDevice() {
     document.getElementById('restart').addEventListener('touchend', (e) => {
         e.preventDefault();
     });
-    document.getElementById('restart').addEventListener('click', (e) => {
+    document.getElementById('restart').addEventListener('mousedown', (e) => {
         e.preventDefault();
         reloadPage();
     });
-    document.getElementById('restart').addEventListener('onmouseout', (e) => {
+    document.getElementById('restart').addEventListener('mouseup', (e) => {
         e.preventDefault();
     });
 }

@@ -6,6 +6,15 @@ body {
     flex-direction: column;
     align-items: center;
     background: rgb(194, 192, 181);
+    background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url("img/background-desert.jpg");
+}
+
+h1 {
+    font-size: 40px;
+    color: rgb(255, 255, 255);
+    background-color: #A0220B;
+    padding: 10px 14px 10px 14px;
+    border-radius: 8px;
 }
 
 .window {
@@ -52,6 +61,7 @@ canvas {
 .touchscreen-button-container img {
     border: 1px solid grey;
     border-radius: 4px;
+    cursor: pointer;
 }
 
 .jump-throw-buttons, .left-right-buttons {
@@ -109,7 +119,12 @@ canvas {
     }
 
     .instruction-manual {
-        display: none;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .instruction-manual img {
+        height: 40px;
     }
 }
 
